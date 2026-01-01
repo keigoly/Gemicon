@@ -1,4 +1,4 @@
-# GemAvatar Customizer
+# GemAvatar
 
 Google Gemini のユーザーアイコンや各Gemのアイコンを、自分好みの画像にカスタマイズできるChrome拡張機能です。
 
