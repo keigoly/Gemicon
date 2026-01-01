@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
-  "name": "GemAvatar Customizer",
-  "version": "1.2.1",
+  "name": "GemAvatar",
+  "version": "1.0.0",
   "description": "Customize your user avatar on Google Gemini.",
   "permissions": ["storage", "unlimitedStorage"],
   "host_permissions": ["https://gemini.google.com/*"],

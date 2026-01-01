@@ -9,10 +9,11 @@
   --input-border: #ccc;
   --btn-hover: #e8eaed;
   --secondary-text: #5f6368;
-  --link-hover: #f1f3f4; /* リンクのホバー色 */
+  --link-hover: #f1f3f4;
+  --reload-btn-bg: #34a853; /* 更新ボタン用 (緑) */
+  --reload-btn-hover: #2d8f47;
 }
 
-/* ダークモード */
 body.dark-mode {
   --bg-color: #202124;
   --text-color: #e8eaed;
@@ -24,11 +25,17 @@ body.dark-mode {
   --btn-hover: #3c4043;
   --secondary-text: #9aa0a6;
   --link-hover: #35363a;
+  --reload-btn-bg: #34a853;
+  --reload-btn-hover: #2d8f47;
 }
 
+/* (以下、既存スタイル。変更なしの部分は省略せずに念のため全体を記載) */
+
 body {
-  width: 320px; /* リストが見やすいように少しだけ幅を拡張 */
-  height: 500px; /* 内容が増えたので高さを拡張 */
+  /* ▼▼▼ ここを変更 ▼▼▼ */
+  width: 360px;  /* 320px から変更 */
+  height: 550px; /* 500px から変更 */
+  /* ▲▲▲ 変更終了 ▲▲▲ */
   margin: 0;
   font-family: 'Segoe UI', Roboto, sans-serif;
   background-color: var(--bg-color);
@@ -58,10 +65,8 @@ header {
 }
 header h1 { margin: 0; font-size: 16px; color: var(--header-text); }
 .header-left { display: flex; align-items: center; gap: 8px; }
-
 .status-row { display: flex; align-items: center; gap: 8px; }
 #status-text { font-size: 12px; font-weight: bold; }
-
 .icon-btn {
   background: none;
   border: none;
@@ -95,12 +100,11 @@ header h1 { margin: 0; font-size: 16px; color: var(--header-text); }
   cursor: pointer;
   background-color: var(--card-bg);
   user-select: none;
-  color: var(--text-color); /* 色を明示 */
+  color: var(--text-color);
 }
 .accordion-header:hover { background-color: var(--btn-hover); }
 .accordion-header .arrow { transition: transform 0.3s ease; color: var(--secondary-text); }
 .accordion.active .arrow { transform: rotate(180deg); }
-
 .accordion-body {
   max-height: 0;
   overflow: hidden;
@@ -108,74 +112,20 @@ header h1 { margin: 0; font-size: 16px; color: var(--header-text); }
   background-color: var(--card-bg);
 }
 .accordion.active .accordion-body {
-  max-height: 400px; /* リンクが増えたので最大高さを確保 */
+  max-height: 400px;
   border-top: 1px solid var(--border-color);
 }
 
-/* ▼▼▼ リンク型リストのデザイン（新規追加） ▼▼▼ */
-.link-list {
-  display: flex;
-  flex-direction: column;
-}
-
-.link-item {
-  display: flex;
-  align-items: center;
-  padding: 10px 12px;
-  text-decoration: none;
-  color: var(--text-color);
-  border-bottom: 1px solid var(--border-color);
-  transition: background-color 0.2s;
-}
-
-.link-item:last-child {
-  border-bottom: none;
-}
-
-.link-item:hover {
-  background-color: var(--link-hover);
-}
-
-.link-icon-wrapper {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 24px;
-  margin-right: 12px;
-  color: var(--secondary-text);
-}
-
-.link-text {
-  flex-grow: 1;
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-  overflow: hidden; /* 長い文字対策 */
-}
-
-.link-title {
-  font-size: 13px;
-  font-weight: 600;
-  color: var(--text-color);
-}
-
-.link-desc {
-  font-size: 11px;
-  color: var(--secondary-text);
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.link-arrow {
-  color: var(--secondary-text);
-  opacity: 0.7;
-}
-/* ▲▲▲ 追加終了 ▲▲▲ */
-
-/* 言語・テーマ設定 */
-.lang-selector { padding: 10px; display: flex; flex-direction: column; gap: 10px; }
-.radio-label { font-size: 13px; cursor: pointer; display: flex; align-items: center; gap: 8px; color: var(--text-color); }
+/* リンク型リスト */
+.link-list { display: flex; flex-direction: column; }
+.link-item { display: flex; align-items: center; padding: 10px 12px; text-decoration: none; color: var(--text-color); border-bottom: 1px solid var(--border-color); transition: background-color 0.2s; }
+.link-item:last-child { border-bottom: none; }
+.link-item:hover { background-color: var(--link-hover); }
+.link-icon-wrapper { display: flex; align-items: center; justify-content: center; width: 24px; margin-right: 12px; color: var(--secondary-text); }
+.link-text { flex-grow: 1; display: flex; flex-direction: column; gap: 2px; overflow: hidden; }
+.link-title { font-size: 13px; font-weight: 600; color: var(--text-color); }
+.link-desc { font-size: 11px; color: var(--secondary-text); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.link-arrow { color: var(--secondary-text); opacity: 0.7; }
 
 /* 入力エリア・リスト等 */
 .input-group label, .list-container label {
@@ -197,6 +147,7 @@ input[type="text"] {
   margin-bottom: 4px;
 }
 
+/* ファイル入力 */
 .hidden-file-input { display: none; }
 .file-input-row { display: flex; align-items: center; gap: 8px; margin-bottom: 12px; background: var(--card-bg); padding: 6px; border: 1px solid var(--border-color); border-radius: 4px; }
 .custom-file-btn {
@@ -212,6 +163,7 @@ input[type="text"] {
 .custom-file-btn:hover { opacity: 0.8; }
 .file-name { font-size: 11px; color: var(--secondary-text); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; max-width: 150px; }
 
+/* ボタン類 */
 button#add-btn {
   width: 100%;
   padding: 8px;
@@ -226,6 +178,22 @@ button#add-btn {
 button#add-btn:disabled { background-color: #ccc; cursor: not-allowed; }
 button#add-btn:hover:not(:disabled) { background-color: #1558b0; }
 
+/* ▼▼▼ 追加: 更新ボタンのスタイル ▼▼▼ */
+.reload-btn {
+  width: 100%;
+  margin-bottom: 8px;
+  padding: 6px;
+  background-color: var(--reload-btn-bg);
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: bold;
+}
+.reload-btn:hover { background-color: var(--reload-btn-hover); }
+/* ▲▲▲ 追加終了 ▲▲▲ */
+
 .list-container { margin-top: 16px; flex-grow: 1; overflow-y: auto; display: flex; flex-direction: column; }
 ul { list-style: none; padding: 0; margin: 0; background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 4px; flex-grow: 1; }
 li.gem-item { display: flex; justify-content: space-between; align-items: center; padding: 8px 10px; border-bottom: 1px solid var(--border-color); font-size: 13px; color: var(--text-color); }
@@ -234,6 +202,10 @@ li.gem-item img { width: 20px; height: 20px; border-radius: 50%; margin-right: 8
 .item-name { flex-grow: 1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .delete-btn { background: none; border: none; color: var(--secondary-text); cursor: pointer; font-size: 16px; padding: 0 4px; }
 .delete-btn:hover { color: #d93025; }
+
+/* 言語・テーマ設定 */
+.lang-selector { padding: 10px; display: flex; flex-direction: column; gap: 10px; }
+.radio-label { font-size: 13px; cursor: pointer; display: flex; align-items: center; gap: 8px; color: var(--text-color); }
 
 footer { margin-top: 8px; text-align: center; }
 footer p { margin: 0; font-size: 10px; color: var(--secondary-text); }
