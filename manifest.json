@@ -1,0 +1,28 @@
+{
+  "manifest_version": 3,
+  "name": "GemAvatar Customizer",
+  "version": "1.0.0",
+  "description": "Customize your user avatar on Google Gemini.",
+  "permissions": ["storage"],
+  "host_permissions": ["https://gemini.google.com/*"],
+  "action": {
+    "default_popup": "src/popup/index.html"
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://gemini.google.com/*"],
+      "js": ["src/content/index.ts"],
+      "run_at": "document_idle"
+    }
+  ],
+  "web_accessible_resources": [
+    {
+      "resources": [
+        "src/assets/my-avatar.png"
+        
+        
+      ],
+      "matches": ["https://gemini.google.com/*"]
+    }
+  ]
+}
